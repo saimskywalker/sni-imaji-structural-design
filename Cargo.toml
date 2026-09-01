@@ -1,0 +1,15 @@
+[package]
+name = "sni-struct"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+license = "MIT"
+repository = "https://github.com/saimskywalker/sni-struct"
+authors = ["Setyo Aji Imam Maliki <15120878+saimskywalker@users.noreply.github.com>"]
+description = "Indonesian structural engineering design checks (SNI 1727, 1729, 1726, 2847) in strict SI units"
+readme = "README.md"
+keywords = ["structural", "engineering", "sni", "steel", "concrete"]
+categories = ["science", "mathematics"]
+
+[lints.rust]
+missing_docs = "warn"
