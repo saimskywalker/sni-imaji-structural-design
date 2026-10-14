@@ -137,13 +137,13 @@ pub struct BaseShearResult {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::seismic::approximate_period;
-/// use sni_struct::units::Length;
+/// use imaji_structural_design::seismic::approximate_period;
+/// use imaji_structural_design::units::Length;
 ///
 /// // Steel moment frame, hn = 20 m: Ta = 0.0724 * 20^0.8 = 0.0724 * 10.986 = 0.795 s
 /// let ta = approximate_period(0.0724, Length::m(20.0), 0.8)?;
 /// assert!((ta - 0.7954).abs() < 1e-3);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn approximate_period(ct: f64, hn: Length, x: f64) -> Result<f64> {
     let ct = positive("ct", ct)?;
@@ -209,8 +209,8 @@ pub fn bounded_period(computed_period: f64, cu: f64, ta: f64) -> Result<f64> {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::seismic::{base_shear, CsGoverning, SeismicInput};
-/// use sni_struct::units::Force;
+/// use imaji_structural_design::seismic::{base_shear, CsGoverning, SeismicInput};
+/// use imaji_structural_design::units::Force;
 ///
 /// let input = SeismicInput {
 ///     sds: 0.7,
@@ -229,7 +229,7 @@ pub fn bounded_period(computed_period: f64, cu: f64, ta: f64) -> Result<f64> {
 /// assert_eq!(result.governing, CsGoverning::LongPeriodLimit);
 /// assert!((result.cs - 0.0625).abs() < 1e-12);
 /// assert!((result.base_shear.to_kn() - 625.0).abs() < 1e-9);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn base_shear(input: &SeismicInput) -> Result<BaseShearResult> {
     let sds = positive("sds", input.sds)?;

@@ -298,13 +298,13 @@ pub struct SectionClassification {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::steel::{classify_flexural_section, profiles, Slenderness, STEEL_E};
-/// use sni_struct::units::Stress;
+/// use imaji_structural_design::steel::{classify_flexural_section, profiles, Slenderness, STEEL_E};
+/// use imaji_structural_design::units::Stress;
 ///
 /// let section = profiles::wf("WF 400x200x8x13").expect("profile exists");
 /// let class = classify_flexural_section(&section, Stress::mpa(240.0), STEEL_E)?;
 /// assert_eq!(class.overall, Slenderness::Compact);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn classify_flexural_section(
     section: &SteelSection,

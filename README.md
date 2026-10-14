@@ -1,4 +1,4 @@
-# sni-struct
+# imaji-structural-design — Rust crate for Indonesian structural design checks (SNI 1726, 1727, 1729, 2847)
 
 Indonesian structural engineering design checks in Rust: steel members to
 SNI 1729, reinforced concrete to SNI 2847, LRFD load combinations to SNI 1727,
@@ -17,8 +17,9 @@ the arithmetic can be reviewed, the assumptions are written down, and a change
 that breaks a result fails loudly.
 
 For irrigation and hydraulic structures, see
-[kp-irigasi](https://github.com/saimskywalker/kp-irigasi). Structural design and
-hydraulic design are different enough in practice that they are kept apart.
+[imaji-kp-hydraulics](https://github.com/saimskywalker/irigasi-imaji-kp-hydraulics).
+Structural design and hydraulic design are different enough in practice that
+they are kept apart.
 
 ## What it does
 
@@ -61,11 +62,18 @@ the caller's promise that every effect in one `LoadSet` shares a unit;
 
 ## Usage
 
+Not yet published to crates.io; depend on it from git:
+
+```toml
+[dependencies]
+imaji-structural-design = { git = "https://github.com/saimskywalker/sni-imaji-structural-design" }
+```
+
 ```rust
-use sni_struct::loads::{evaluate, lrfd_combinations, LoadSet};
-use sni_struct::steel::{check_flexure, profiles, FlexureInput, LimitState};
-use sni_struct::units::{Length, LoadEffect, Moment, Stress};
-use sni_struct::SniError;
+use imaji_structural_design::loads::{evaluate, lrfd_combinations, LoadSet};
+use imaji_structural_design::steel::{check_flexure, profiles, FlexureInput, LimitState};
+use imaji_structural_design::units::{Length, LoadEffect, Moment, Stress};
+use imaji_structural_design::SniError;
 
 fn design_a_floor_beam() -> Result<(), SniError> {
     // Unfactored midspan moments, kN.m.
@@ -102,8 +110,8 @@ fn design_a_floor_beam() -> Result<(), SniError> {
 Two runnable examples print full calculation reports:
 
 ```
-cargo run -p sni-struct --example steel_beam_check
-cargo run -p sni-struct --example concrete_beam_check
+cargo run -p imaji-structural-design --example steel_beam_check
+cargo run -p imaji-structural-design --example concrete_beam_check
 ```
 
 ## Design principles

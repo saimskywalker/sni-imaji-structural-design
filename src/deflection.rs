@@ -119,14 +119,14 @@ pub struct DeflectionCheck {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::deflection::{check_deflection, DeflectionLimit};
-/// use sni_struct::units::Length;
+/// use imaji_structural_design::deflection::{check_deflection, DeflectionLimit};
+/// use imaji_structural_design::units::Length;
 ///
 /// // 6 m span, computed 12 mm: L/360 allows 16.67 mm.
 /// let check = check_deflection(Length::mm(12.0), Length::m(6.0), DeflectionLimit::Floor)?;
 /// assert!((check.allowable.to_mm() - 16.6667).abs() < 1e-3);
 /// assert!(check.adequate);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn check_deflection(
     actual: Length,
@@ -163,8 +163,8 @@ pub fn check_deflection(
 /// # Examples
 ///
 /// ```
-/// use sni_struct::deflection::simply_supported_uniform;
-/// use sni_struct::units::{Length, LineLoad, SecondMoment, Stress};
+/// use imaji_structural_design::deflection::simply_supported_uniform;
+/// use imaji_structural_design::units::{Length, LineLoad, SecondMoment, Stress};
 ///
 /// // 10 kN/m over 6 m on a WF 400x200 (Ix = 23 700 cm4).
 /// let delta = simply_supported_uniform(
@@ -175,7 +175,7 @@ pub fn check_deflection(
 /// )?;
 /// // 5*10*6000^4 / (384*200000*2.37e8) = 6.48e16/1.82016e16 = 3.560 mm
 /// assert!((delta.to_mm() - 3.5601).abs() < 1e-3);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn simply_supported_uniform(
     w: LineLoad,
