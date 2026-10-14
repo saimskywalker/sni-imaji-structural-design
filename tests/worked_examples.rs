@@ -6,19 +6,23 @@
 //!
 //! Units follow the crate convention: mm, mm2, mm3, mm4, N, N/mm, N·mm, MPa.
 
-use sni_struct::concrete::{
+use imaji_structural_design::concrete::{
     check_beam_flexure, ConcreteBeamInput, ConcreteLimitState, SectionBehaviour,
 };
-use sni_struct::deflection::{check_deflection, simply_supported_uniform, DeflectionLimit};
-use sni_struct::loads::{evaluate, lrfd_combinations, LoadSet};
-use sni_struct::seismic::{
+use imaji_structural_design::deflection::{
+    check_deflection, simply_supported_uniform, DeflectionLimit,
+};
+use imaji_structural_design::loads::{evaluate, lrfd_combinations, LoadSet};
+use imaji_structural_design::seismic::{
     approximate_period, base_shear, bounded_period, CsGoverning, SeismicInput,
 };
-use sni_struct::steel::{
+use imaji_structural_design::steel::{
     check_flexure, check_shear, profiles, FlexureInput, LimitState, LtbZone, ShearInput,
     Slenderness, WebShearCase, STEEL_E,
 };
-use sni_struct::units::{Area, Force, Length, LineLoad, LoadEffect, Moment, SecondMoment, Stress};
+use imaji_structural_design::units::{
+    Area, Force, Length, LineLoad, LoadEffect, Moment, SecondMoment, Stress,
+};
 
 // ---------------------------------------------------------------------------
 // Worked example 1
@@ -31,7 +35,7 @@ use sni_struct::units::{Area, Force, Length, LineLoad, LoadEffect, Moment, Secon
 
 const FY_BJ41: Stress = Stress::mpa(250.0);
 
-fn beam_350() -> sni_struct::steel::SteelSection {
+fn beam_350() -> imaji_structural_design::steel::SteelSection {
     profiles::wf("WF 350x175x7x11").expect("bundled profile")
 }
 
@@ -89,8 +93,8 @@ fn example1_plastic_moment() {
 #[test]
 fn example1_bracing_limits() {
     let section = beam_350();
-    let lp = sni_struct::steel::lp(&section, FY_BJ41, STEEL_E).expect("lp");
-    let lr = sni_struct::steel::lr(&section, FY_BJ41, STEEL_E).expect("lr");
+    let lp = imaji_structural_design::steel::lp(&section, FY_BJ41, STEEL_E).expect("lp");
+    let lr = imaji_structural_design::steel::lr(&section, FY_BJ41, STEEL_E).expect("lr");
     assert!((lp.to_mm() - 1965.1).abs() < 1.0, "Lp {lp}");
     assert!((lr.to_mm() - 5778.5).abs() < 10.0, "Lr {lr}");
 }

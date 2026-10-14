@@ -328,8 +328,8 @@ pub fn flange_local_buckling_strength(
 /// # Examples
 ///
 /// ```
-/// use sni_struct::steel::{check_flexure, profiles, FlexureInput, LimitState, LtbZone};
-/// use sni_struct::units::{Length, Moment, Stress};
+/// use imaji_structural_design::steel::{check_flexure, profiles, FlexureInput, LimitState, LtbZone};
+/// use imaji_structural_design::units::{Length, Moment, Stress};
 ///
 /// let section = profiles::wf("WF 400x200x8x13").expect("profile exists");
 /// let input = FlexureInput::new(
@@ -345,7 +345,7 @@ pub fn flange_local_buckling_strength(
 /// // Mp = 1 285 952 mm3 * 240 MPa = 308.63 kN.m, phi*Mn = 277.77 kN.m
 /// assert!((check.phi_mn.to_kn_m() - 277.77).abs() < 0.01);
 /// assert!(check.adequate);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn check_flexure(input: &FlexureInput) -> Result<FlexureCheck> {
     let section = &input.section;

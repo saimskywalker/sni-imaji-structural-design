@@ -4,15 +4,19 @@
 //! Run with:
 //!
 //! ```text
-//! cargo run -p sni-struct --example steel_beam_check
+//! cargo run -p imaji-structural-design --example steel_beam_check
 //! ```
 
 use std::error::Error;
 
-use sni_struct::deflection::{check_deflection, simply_supported_uniform, DeflectionLimit};
-use sni_struct::loads::{evaluate, lrfd_combinations, LoadSet};
-use sni_struct::steel::{check_flexure, check_shear, profiles, FlexureInput, ShearInput, STEEL_E};
-use sni_struct::units::{Force, Length, LineLoad, LoadEffect, Moment, Stress};
+use imaji_structural_design::deflection::{
+    check_deflection, simply_supported_uniform, DeflectionLimit,
+};
+use imaji_structural_design::loads::{evaluate, lrfd_combinations, LoadSet};
+use imaji_structural_design::steel::{
+    check_flexure, check_shear, profiles, FlexureInput, ShearInput, STEEL_E,
+};
+use imaji_structural_design::units::{Force, Length, LineLoad, LoadEffect, Moment, Stress};
 
 fn main() -> Result<(), Box<dyn Error>> {
     // ---- Design data -----------------------------------------------------
