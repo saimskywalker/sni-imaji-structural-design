@@ -2,7 +2,7 @@
 //!
 //! # Unit convention
 //!
-//! Every quantity in `sni-struct` is stored in one canonical unit and nothing else:
+//! Every quantity in `imaji-structural-design` is stored in one canonical unit and nothing else:
 //!
 //! | Quantity        | Type             | Canonical unit          |
 //! |-----------------|------------------|-------------------------|

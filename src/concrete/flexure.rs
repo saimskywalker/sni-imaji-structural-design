@@ -199,14 +199,14 @@ pub struct ConcreteFlexureCheck {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::concrete::beta1;
-/// use sni_struct::units::Stress;
+/// use imaji_structural_design::concrete::beta1;
+/// use imaji_structural_design::units::Stress;
 ///
 /// assert!((beta1(Stress::mpa(25.0))? - 0.85).abs() < 1e-12);
 /// // 0.85 - 0.05*(35-28)/7 = 0.80
 /// assert!((beta1(Stress::mpa(35.0))? - 0.80).abs() < 1e-12);
 /// assert!((beta1(Stress::mpa(60.0))? - 0.65).abs() < 1e-12);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn beta1(fc: Stress) -> Result<f64> {
     let fc = positive("fc", fc.to_mpa())?;
@@ -348,8 +348,8 @@ pub fn maximum_reinforcement(
 /// # Examples
 ///
 /// ```
-/// use sni_struct::concrete::{check_beam_flexure, ConcreteBeamInput, SectionBehaviour};
-/// use sni_struct::units::{Area, Length, Moment, Stress};
+/// use imaji_structural_design::concrete::{check_beam_flexure, ConcreteBeamInput, SectionBehaviour};
+/// use imaji_structural_design::units::{Area, Length, Moment, Stress};
 ///
 /// let input = ConcreteBeamInput::new(
 ///     Length::mm(300.0),        // b
@@ -367,7 +367,7 @@ pub fn maximum_reinforcement(
 /// assert_eq!(check.behaviour, SectionBehaviour::TensionControlled);
 /// assert!((check.phi - 0.90).abs() < 1e-12);
 /// assert!(check.adequate);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn check_beam_flexure(input: &ConcreteBeamInput) -> Result<ConcreteFlexureCheck> {
     let b = positive("width", input.width.to_mm())?;

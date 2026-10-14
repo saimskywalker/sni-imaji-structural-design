@@ -1,18 +1,18 @@
 //! Edge cases: values sitting exactly on a clause boundary, degenerate geometry,
 //! and input the library must refuse rather than silently mis-handle.
 
-use sni_struct::concrete::{check_beam_flexure, ConcreteBeamInput};
-use sni_struct::deflection::{simply_supported_uniform, DeflectionLimit};
-use sni_struct::loads::{evaluate, lrfd_combinations, LoadSet};
-use sni_struct::steel::{
+use imaji_structural_design::concrete::{check_beam_flexure, ConcreteBeamInput};
+use imaji_structural_design::deflection::{simply_supported_uniform, DeflectionLimit};
+use imaji_structural_design::loads::{evaluate, lrfd_combinations, LoadSet};
+use imaji_structural_design::steel::{
     check_flexure, check_shear, classify_flexural_section, lateral_torsional_buckling_strength, lp,
     lr, profiles, FlexureInput, LimitState, LtbZone, ShearInput, Slenderness, SteelSection,
     WebShearCase, STEEL_E,
 };
-use sni_struct::units::{
+use imaji_structural_design::units::{
     Area, Force, Length, LineLoad, LoadEffect, Moment, SecondMoment, SectionModulus, Stress,
 };
-use sni_struct::SniError;
+use imaji_structural_design::SniError;
 
 const FY: Stress = Stress::mpa(240.0);
 

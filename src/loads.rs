@@ -262,7 +262,7 @@ impl CombinationReport {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::loads::lrfd_combinations;
+/// use imaji_structural_design::loads::lrfd_combinations;
 ///
 /// let combos = lrfd_combinations();
 /// assert_eq!(combos.len(), 8);
@@ -382,14 +382,14 @@ pub fn lrfd_combinations() -> Vec<LoadCombination> {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::loads::lrfd_combinations_with_vertical_seismic;
+/// use imaji_structural_design::loads::lrfd_combinations_with_vertical_seismic;
 ///
 /// // Sds = 0.7, rho = 1.3: seismic combos become 1.34D and 0.76D.
 /// let combos = lrfd_combinations_with_vertical_seismic(0.7, 1.3)?;
 /// let uplift = combos.last().expect("non-empty");
 /// assert!((uplift.factors.dead - 0.76).abs() < 1e-12);
 /// assert!((uplift.factors.seismic - 1.3).abs() < 1e-12);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn lrfd_combinations_with_vertical_seismic(sds: f64, rho: f64) -> Result<Vec<LoadCombination>> {
     let sds = crate::error::non_negative("sds", sds)?;
@@ -442,8 +442,8 @@ pub fn lrfd_combinations_with_vertical_seismic(sds: f64, rho: f64) -> Result<Vec
 /// # Examples
 ///
 /// ```
-/// use sni_struct::loads::{evaluate, lrfd_combinations, LoadSet};
-/// use sni_struct::units::LoadEffect;
+/// use imaji_structural_design::loads::{evaluate, lrfd_combinations, LoadSet};
+/// use imaji_structural_design::units::LoadEffect;
 ///
 /// // Moments in kN.m at a beam midspan.
 /// let loads = LoadSet::zero()
@@ -457,7 +457,7 @@ pub fn lrfd_combinations_with_vertical_seismic(sds: f64, rho: f64) -> Result<Vec
 /// // 1.2*100 + 1.0*60 + 1.0*80 + 0.5*20 = 270, above the seismic case at 240.
 /// assert_eq!(report.governing().combination.name, "1.2D + 1.0W + 1.0L + 0.5(Lr or R)");
 /// assert!((report.governing().value.value() - 270.0).abs() < 1e-9);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn evaluate(combinations: &[LoadCombination], loads: &LoadSet) -> Result<CombinationReport> {
     if combinations.is_empty() {

@@ -111,7 +111,7 @@ impl Row {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::steel::profiles;
+/// use imaji_structural_design::steel::profiles;
 ///
 /// let s = profiles::wf("wf 400x200x8x13").expect("bundled profile");
 /// assert_eq!(s.depth.to_mm(), 400.0);
@@ -130,7 +130,7 @@ pub fn wf(designation: &str) -> Option<SteelSection> {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::steel::profiles;
+/// use imaji_structural_design::steel::profiles;
 ///
 /// assert_eq!(profiles::designations().len(), 20);
 /// ```

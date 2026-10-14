@@ -158,8 +158,8 @@ pub fn stiffened_web_kv(a_over_h: f64) -> Result<f64> {
 /// # Examples
 ///
 /// ```
-/// use sni_struct::steel::{check_shear, profiles, ShearInput, WebShearCase};
-/// use sni_struct::units::{Force, Stress};
+/// use imaji_structural_design::steel::{check_shear, profiles, ShearInput, WebShearCase};
+/// use imaji_structural_design::units::{Force, Stress};
 ///
 /// let section = profiles::wf("WF 400x200x8x13").expect("profile exists");
 /// let input = ShearInput::new(section, Stress::mpa(240.0), Force::kn(200.0));
@@ -170,7 +170,7 @@ pub fn stiffened_web_kv(a_over_h: f64) -> Result<f64> {
 /// // Vn = 0.6 * 240 * (400*8) * 1.0 = 460 800 N
 /// assert!((check.vn.to_kn() - 460.8).abs() < 1e-6);
 /// assert!(check.adequate);
-/// # Ok::<(), sni_struct::SniError>(())
+/// # Ok::<(), imaji_structural_design::SniError>(())
 /// ```
 pub fn check_shear(input: &ShearInput) -> Result<ShearCheck> {
     let section = &input.section;

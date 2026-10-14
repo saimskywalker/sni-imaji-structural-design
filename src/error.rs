@@ -1,6 +1,6 @@
 //! Error type for every fallible design check in this crate.
 //!
-//! Library code in `sni-struct` never panics. Anything that cannot be computed,
+//! Library code in `imaji-structural-design` never panics. Anything that cannot be computed,
 //! because the input is not physically meaningful or falls outside the range the
 //! implemented clauses cover, comes back as [`SniError`].
 
