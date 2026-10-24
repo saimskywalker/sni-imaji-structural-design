@@ -172,4 +172,4 @@ standard. The author accepts no liability for the use of these calculations.
 
 ## Licence
 
-MIT OR Apache-2.0, matching the workspace.
+MIT. See [LICENSE-MIT](LICENSE-MIT).
