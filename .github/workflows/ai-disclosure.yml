@@ -1,0 +1,62 @@
+name: AI disclosure
+
+# Outside contributors say in the PR description whether they used AI tools.
+# See "AI-assisted contributions" in CONTRIBUTING.md. This job reads only the
+# event payload: no checkout, no token permissions.
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+permissions: {}
+
+jobs:
+  disclosure:
+    if: >-
+      !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association)
+      && github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the AI use section of the PR description
+        env:
+          # Passed through the environment, never interpolated into the script.
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+          body="${PR_BODY//$'\r'/}"
+          fail() {
+            echo "::error title=AI use disclosure::$1"
+            echo "Please fill in the \"### AI use\" section of the pull request template: tick exactly one"
+            echo "of None, Some or Most (naming the tool and model for Some or Most), and tick \"I wrote this description myself\"."
+            echo "See \"AI-assisted contributions\" in CONTRIBUTING.md. Editing the description re-runs this check."
+            exit 1
+          }
+          if ! grep -Eiq '^###[[:space:]]+AI use[[:space:]]*$' <<<"$body"; then
+            fail 'The PR description has no "### AI use" section.'
+          fi
+          section="$(awk '
+            tolower($0) ~ /^###[[:space:]]+ai use[[:space:]]*$/ { in_s = 1; next }
+            in_s && /^#/ { in_s = 0 }
+            in_s { print }
+          ' <<<"$body")"
+          ticked="$(grep -Eic '^[[:space:]]*[-*][[:space:]]+\[x\][[:space:]]+(none|some|most)([^[:alnum:]]|$)' <<<"$section" || true)"
+          if [ "$ticked" -ne 1 ]; then
+            fail "Tick exactly one of None, Some or Most under \"### AI use\" (found $ticked ticked)."
+          fi
+          choice="$(grep -Ei '^[[:space:]]*[-*][[:space:]]+\[x\][[:space:]]+(none|some|most)([^[:alnum:]]|$)' <<<"$section")"
+          if grep -Eiq '\[x\][[:space:]]+(some|most)' <<<"$choice"; then
+            # The text after "model:" (or after Some/Most if the label was rewritten)
+            # must be filled in, not left as the template's "...".
+            named="$(awk '{
+              i = index(tolower($0), "model:")
+              if (i) { print substr($0, i + 6) }
+              else { sub(/^[[:space:]]*[-*][[:space:]]+\[[xX]\][[:space:]]+[A-Za-z]+/, ""); print }
+            }' <<<"$choice")"
+            named="$(tr -d '[:space:]()' <<<"$named")"
+            if [[ "$choice" == *"..."* || "$choice" == *"…"* || ${#named} -lt 2 ]]; then
+              fail 'Name the AI tool and model you used, e.g. "Claude Code, Opus 5.5".'
+            fi
+          fi
+          if ! grep -Eiq '^[[:space:]]*[-*][[:space:]]+\[x\][[:space:]]+I wrote this description myself' <<<"$section"; then
+            fail 'Tick "I wrote this description myself and I have read and tested every line."'
+          fi
+          echo "AI use disclosure present."

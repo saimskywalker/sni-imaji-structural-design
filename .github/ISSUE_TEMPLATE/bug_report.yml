@@ -1,0 +1,73 @@
+name: Bug report
+description: A wrong result, a panic, or an error where there should be none
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Results are checked against worked examples, so a hand calculation or textbook example that disagrees is the most useful report.
+        Please do not paste text or tables copied out of a standard; a clause number
+        and the input values are enough.
+  - type: input
+    id: version
+    attributes:
+      label: Crate version or commit
+      placeholder: 0.1.0, or a commit SHA from main
+    validations:
+      required: true
+  - type: input
+    id: rustc
+    attributes:
+      label: Rust version and platform
+      description: Output of `rustc --version`, and the OS
+      placeholder: rustc 1.82.0 on Ubuntu 24.04
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: The smallest code that shows it, with literal inputs.
+      render: rust
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: The value, the `Err`, or the panic with its backtrace.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result, and its source
+      description: >
+        The value you expected and where it comes from: the SNI number, edition and clause, and a worked
+        example from the standard or a textbook (title, edition, page) if you have one.
+      placeholder: "SNI <number>:<year> cl. <x.y.z>; worked example from <textbook>, <edition>, p. <n>"
+    validations:
+      required: true
+  - type: dropdown
+    id: ai-use
+    attributes:
+      label: Did you use an AI tool to write this issue?
+      options:
+        - "No"
+        - "Yes, for parts"
+        - "Yes, mostly"
+    validations:
+      required: true
+  - type: input
+    id: ai-tool
+    attributes:
+      label: If yes, which tool and model?
+      description: Required if you answered yes above, for example "Claude Code, Opus 5.5" or "Copilot, GPT-5".
+  - type: checkboxes
+    id: own-words
+    attributes:
+      label: Your own words
+      options:
+        - label: I wrote this issue in my own words.
+          required: true

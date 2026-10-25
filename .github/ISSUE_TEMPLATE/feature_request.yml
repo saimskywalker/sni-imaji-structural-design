@@ -1,0 +1,56 @@
+name: Feature request
+description: Suggest a design check or clause from an SNI standard
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every check here cites the SNI clause it implements and is tested against a worked example with a stated source. A request that comes with one is much easier to land.
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like added
+      description: The check, calculation or procedure, and how you would call it.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: SNI number, edition and clause
+      description: Which document and edition it comes from. No copied text or tables, please.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: A worked example
+      description: >
+        Inputs and the expected result, with where the example comes from (the standard,
+        or a textbook with title, edition and page). This is what the test will be built on.
+  - type: textarea
+    id: use
+    attributes:
+      label: Why you need it
+      description: The design or review task this would help with.
+  - type: dropdown
+    id: ai-use
+    attributes:
+      label: Did you use an AI tool to write this issue?
+      options:
+        - "No"
+        - "Yes, for parts"
+        - "Yes, mostly"
+    validations:
+      required: true
+  - type: input
+    id: ai-tool
+    attributes:
+      label: If yes, which tool and model?
+      description: Required if you answered yes above, for example "Claude Code, Opus 5.5" or "Copilot, GPT-5".
+  - type: checkboxes
+    id: own-words
+    attributes:
+      label: Your own words
+      options:
+        - label: I wrote this issue in my own words.
+          required: true
